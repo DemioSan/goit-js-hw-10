@@ -53,5 +53,5 @@ function onSelectBreed(event) {
 function onFetchError(error) {
   selector.classList.add('hidden');
   loader.classList.add('hidden');
-  error.classList.remove('hidden');
+  swal('Oops!', 'Something went wrong! Try reloading the page!', 'error');
 }
