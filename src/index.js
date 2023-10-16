@@ -46,6 +46,7 @@ function initializePage() {
 function loadCatInfo(breedId) {
   selector.classList.add('hidden');
   loader.classList.remove('hidden');
+  divCatInfo.innerHTML = '';
 
   fetchCatByBreed(breedId)
     .then(data => {
@@ -66,4 +67,3 @@ function onFetchError(error) {
 }
 
 initializePage();
-throw new Error('Це моя власна помилка');
