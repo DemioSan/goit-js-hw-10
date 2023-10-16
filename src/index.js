@@ -14,30 +14,38 @@ const { selector, divCatInfo, loader, error } = ref;
 loader.classList.add('hidden');
 error.classList.add('hidden');
 
+let isFirstSelection = false;
+
 function initializePage() {
   const arrBreedsId = [];
+
   fetchBreeds()
     .then(data => {
       data.forEach(element => {
         arrBreedsId.push({ text: element.name, value: element.id });
       });
-      new SlimSelect({
+
+      const slim = new SlimSelect({
         select: selector,
         data: arrBreedsId,
       });
+
+      selector.addEventListener('change', event => {
+        if (isFirstSelection) {
+          isFirstSelection = false;
+        } else {
+          const selectedBreedId = event.target.value;
+          loadCatInfo(selectedBreedId);
+        }
+      });
     })
     .catch(onFetchError);
-
-  selector.addEventListener('change', onSelectBreed);
 }
 
-initializePage();
-
-function onSelectBreed(event) {
+function loadCatInfo(breedId) {
   selector.classList.add('hidden');
   loader.classList.remove('hidden');
 
-  const breedId = event.currentTarget.value;
   fetchCatByBreed(breedId)
     .then(data => {
       loader.classList.add('hidden');
@@ -55,3 +63,5 @@ function onFetchError(error) {
   loader.classList.add('hidden');
   swal('Oops!', 'Something went wrong! Try reloading the page!', 'error');
 }
+
+initializePage();
