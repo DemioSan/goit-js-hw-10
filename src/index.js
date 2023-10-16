@@ -1,6 +1,7 @@
 import { fetchBreeds, fetchCatByBreed } from './cat-api';
 import SlimSelect from 'slim-select';
 import 'slim-select/dist/slimselect.css';
+import swal from 'sweetalert';
 
 const ref = {
   selector: document.querySelector('.breed-select'),
@@ -65,3 +66,4 @@ function onFetchError(error) {
 }
 
 initializePage();
+throw new Error('Це моя власна помилка');
